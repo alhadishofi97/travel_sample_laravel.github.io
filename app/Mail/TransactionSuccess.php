@@ -7,18 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TransactionSucces extends Mailable
+class TransactionSuccess extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $data;
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data; 
+        
     }
 
     /**
@@ -28,6 +32,9 @@ class TransactionSucces extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this
+        ->from('hi@yukuy.com', 'YUKUY')
+        ->subject('Ticket YUKUY Anda')
+        ->view('email.transaction-success');
     }
 }
